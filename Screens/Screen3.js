@@ -1,10 +1,25 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Switch } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Modal, FlatList } from "react-native";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from "@react-navigation/native";
 
-const Screen3 = ({handleNext}) => {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+const Screen3 = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedReminder, setSelectedReminder] = useState("30 minutes before time");
+const navigation = useNavigation();
+
+  const reminderOptions = [
+    "5 minutes before time",
+    "10 minutes before time",
+    "20 minutes before time",
+    "30 minutes before time",
+    "60 minutes before time",
+  ];
+
+  const handleReminderSelect = (item) => {
+    setSelectedReminder(item);
+    setIsModalVisible(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -28,14 +43,37 @@ const Screen3 = ({handleNext}) => {
 
       <View style={styles.reminderContainer}>
         <Text style={styles.reminderText}>Remind me</Text>
-        <TouchableOpacity style={styles.reminderBefore}>
-          <Text>30 minutes before time</Text>
-          <FontAwesome name="chevron-down" size={14} color="#868686" style={{ marginLeft: 170 }}/>
+        <TouchableOpacity style={styles.reminderBefore} onPress={() => setIsModalVisible(true)}>
+          <Text>{selectedReminder}</Text>
+          <FontAwesome name="chevron-down" size={14} color="#868686" style={{ marginLeft: 170 }} />
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.beginButton} onPress={handleNext}>
-        <Text style={styles.beginButtonText}>Let's Begin</Text>
+      <Modal
+        transparent={true}
+        visible={isModalVisible}
+        onRequestClose={() => setIsModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <FlatList
+              data={reminderOptions}
+              keyExtractor={(item) => item}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={styles.modalItem}
+                  onPress={() => handleReminderSelect(item)}
+                >
+                  <Text>{item}</Text>
+                </TouchableOpacity>
+              )}
+            />
+          </View>
+        </View>
+      </Modal>
+
+      <TouchableOpacity style={styles.beginButton} onPress={() => navigation.navigate('Screen4')}>
+      <Text style={styles.beginButtonText}>Let's Begin</Text>
       </TouchableOpacity>
     </View>
   );
@@ -102,7 +140,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#E2E2E2",
     borderRadius: 10,
     gap: 10,
-    radius: 10,
     height: 44,
     borderColor: "#868686",
     borderWidth: 1,
@@ -122,5 +159,23 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    width: "80%",
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    padding: 20,
+  },
+  modalItem: {
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+  },
 });
+
 export default Screen3;

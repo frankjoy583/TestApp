@@ -67,13 +67,13 @@ export default function OnboardingScreen() {
             </TouchableOpacity>
           </View>
         </View>
-        <View style={[styles.slide, { backgroundColor: "#F7FEFF" }]}>
-       <Screen3 handleNext={handleNext} />
-        </View>
+       
         <View style={[styles.slide, { backgroundColor: "#F7FEFF" }]}>
          <Screen2 />
         </View>
-       
+        <View style={[styles.slide, { backgroundColor: "#F7FEFF" }]}>
+       <Screen3 />
+        </View>
       </Swiper>
       
     </View>
