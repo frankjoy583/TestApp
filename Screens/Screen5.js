@@ -1,17 +1,26 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { useNavigation } from "@react-navigation/native";
 
-const Screen5 = ({ handleNext }) => {
+const Screen5 = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <FontAwesome name="arrow-circle-left" size={24} color="#333" />
+        </TouchableOpacity>
         <Text style={styles.title}>Daily Doses of Rhema</Text>
-        <Text style={styles.subtitle}>Love Community Chapel International</Text>
       </View>
+      <Text style={styles.subtitle}>Love Community Chapel International</Text>
+
       <Image
         source={require("../assets/rhama.png")}
         style={styles.devotionalImage}
       />
+
       <View style={styles.content}>
         <Text style={styles.description}>
           In publishing and graphic design, Lorem ipsum is a placeholder text
@@ -24,7 +33,7 @@ const Screen5 = ({ handleNext }) => {
 
       <TouchableOpacity style={styles.activateButton}>
         <Text style={styles.activateButtonText}>
-          Activate and start reading (₦0.00)
+          Activate and start reading (GHS 0.00)
         </Text>
       </TouchableOpacity>
     </View>
@@ -38,34 +47,38 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
   },
   header: {
-    width: "100%",
-    top: 65,
+    marginTop: "20%",
     alignItems: "center",
+    flexDirection: "row",
   },
   devotionalImage: {
-    width: 50,
-    height: 50,
- },
+    width: "50%",
+    height: "25%",
+    alignSelf: "center",
+    marginBottom: 50,
+    borderRadius: 10,
+  },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    textAlign: "center",
-    color: "#004E60",
+    color: "#2B2B2B",
+    flex: 1,
+    marginLeft: 30,
   },
   subtitle: {
     fontSize: 16,
     textAlign: "center",
-    color: "#868686",
-    marginTop: 5,
+    color: "#001E29",
+    marginTop: 10,
+    margin: 40,
   },
   content: {
-    flex: 1,
     justifyContent: "center",
   },
   description: {
-    fontSize: 16,
-    textAlign: "center",
-    color: "#474747",
+    fontSize: 18,
+    fontWeight: "400",
+    color: "#000000",
     lineHeight: 24,
   },
   activateButton: {
@@ -76,7 +89,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
+    marginTop: "35%",
   },
   activateButtonText: {
     color: "#fff",

@@ -5,6 +5,7 @@ import Screen2 from './Screens/Screen2';
 import SignUp from './Screens/SignUp'; 
 import Screen3 from './Screens/Screen3';
 import Screen4 from './Screens/Screen4';
+import Screen5 from './Screens/Screen5';
 import OnboardingScreen from './Screens/OnboardingScreen';
 
 const Stack = createStackNavigator();
@@ -18,6 +19,7 @@ const AppNavigator = () => {
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Screen3" component={Screen3} />
         <Stack.Screen name="Screen4" component={Screen4} />
+        <Stack.Screen name="Screen5" component={Screen5} />
       </Stack.Navigator>
     </NavigationContainer>
   );
